@@ -3,11 +3,16 @@
 Automation testing framework created with Playwright focuses on the User Registration and Login scenario.
 
 # Test suite : 
+
 - User registration and login
 
 # Test scripts
 
-The Test scripts are located in /Test-Assignment/ folder
+The Test scripts are located in /Test Assignment/ folder.
+
+# Test Report
+
+The Test Report file will be created in the /playwright-report/ folder after running the tests.
 
 # Usage
 
@@ -21,7 +26,7 @@ Running tests
 
 > npx playwright test
 
-> npx playwright test
+> npx playwright test --ui
 
 # Note
 
