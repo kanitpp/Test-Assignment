@@ -117,3 +117,67 @@ test('USER_017: Register New User without accept term and conditions', async ({ 
     await page.locator('[type=submit]').click();
     await expect(page.getByText('กรุณากรอกเพื่อยืนยันตัวตนผ่าน CAPTCHA')).toContainText('กรุณากรอกเพื่อยืนยันตัวตนผ่าน CAPTCHA');
 });
+
+test('USER_018: Register with Google account', async ({ page }) => {
+    await page.goto('http://www.bnn.in.th/register');
+    await page.locator('.btn-login-google').click();
+    
+    const pagePromise = page.waitForEvent('popup');
+    const newPage = await pagePromise;
+    await newPage.waitForLoadState();
+    console.log(await newPage.title());
+    await expect(newPage).toHaveURL(/.*google/);
+});
+
+test('USER_019: Register with Apple account', async ({ page }) => {
+    await page.goto('http://www.bnn.in.th/register');
+    await page.locator('.btn-login-apple').click();
+    
+    const pagePromise = page.waitForEvent('popup');
+    const newPage = await pagePromise;
+    await newPage.waitForLoadState();
+    console.log(await newPage.title());
+    await expect(newPage).toHaveURL(/.*appleid/);
+});
+
+test('USER_020: Login without Email', async ({ page }) => {
+    await page.goto('http://www.bnn.in.th/');
+    await page.getByText('เข้าสู่ระบบ').click();
+    
+    // console.log(await page.locator('.modal-content').textContent());
+    await page.locator('[type=submit]').click();
+    await expect(page.locator('.helper').first()).toContainText('กรุณากรอกข้อมูล');
+});
+
+test('USER_021: Login without Password', async ({ page }) => {
+    await page.goto('http://www.bnn.in.th/');
+    await page.getByText('เข้าสู่ระบบ').click();
+    
+    // console.log(await page.locator('.modal-content').textContent());
+    await page.locator('[type=submit]').click();
+    await expect(page.locator('div:nth-child(2) > .text-field-error > .helper').first()).toContainText('กรุณากรอกข้อมูล');
+});
+
+test('USER_022: Login with Google account', async ({ page }) => {
+    await page.goto('http://www.bnn.in.th/');
+    await page.getByText('เข้าสู่ระบบ').click();
+    await page.locator('.btn-login-google').click();
+    
+    const pagePromise = page.waitForEvent('popup');
+    const newPage = await pagePromise;
+    await newPage.waitForLoadState();
+    console.log(await newPage.title());
+    await expect(newPage).toHaveURL(/.*google/);
+});
+
+test('USER_023: Login with Apple account', async ({ page }) => {
+    await page.goto('http://www.bnn.in.th/');
+    await page.getByText('เข้าสู่ระบบ').click();
+    await page.locator('.btn-login-apple').click();
+    
+    const pagePromise = page.waitForEvent('popup');
+    const newPage = await pagePromise;
+    await newPage.waitForLoadState();
+    console.log(await newPage.title());
+    await expect(newPage).toHaveURL(/.*appleid/);
+});
