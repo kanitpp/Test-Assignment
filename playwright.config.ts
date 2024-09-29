@@ -36,7 +36,11 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        launchOptions: {
+          args: ['--disable-web-security'],
+        },
+        ...devices['Desktop Chrome'] },
     },
 
     // {
